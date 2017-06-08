@@ -34,7 +34,7 @@ startAngle | `number`| | **Required**. Start angle of your chart in degree with 
 endAngle | `number` | | **Required**. End angle of your chart.
 innerRadius | `number` | | **Required**. Inner radius of your chart in pixel.
 outerRadius | `number` | | **Required**. Outer radius of your chart in pixel.
-items | `Array<ToothOption> | | **Required**. Chart data. See [Strip](#ToothOption)
+items | `Array<ToothOption>` | | **Required**. Chart data. See [Strip](#ToothOption)
 margin | `number` | 0 | Default angle between teeth.
 mode | `string` | 
 clockwise | `boolean` | true | The line-up direction of your items(teeth).

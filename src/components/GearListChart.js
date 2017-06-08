@@ -79,21 +79,24 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
   }
   /** willEnter for react-motion */
   motionWillEnter = () => {
-    if (this.props.clockwiseAnimate) {
-      return { offsetAngle: -this.totalAnagle() }
-    } else {
-      return { offsetAngle: this.totalAnagle() }
+    let { clockwiseAnimate } = this.props
+    let totalAnagle = this.totalAnagle()
+    let style = {
+      offsetAngle: clockwiseAnimate ? -totalAnagle : totalAnagle, 
+      opacity: 0
     }
+    return style
   }
 
   /** willLeave for react-motion */
   motionWillLeave = () => {
     let { clockwiseAnimate, motionConfig } = this.props
-    if (clockwiseAnimate) {
-      return { offsetAngle: spring(this.totalAnagle(), motionConfig)}
-    } else {
-      return { offsetAngle: spring(-this.totalAnagle(), motionConfig)}
+    let totalAnagle = this.totalAnagle()
+    let style = {
+      offsetAngle: spring(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig), 
+      opacity: spring(0, { stiffness: 80 })
     }
+    return style
   }
 
   /** Clear focus status if need to */
@@ -142,14 +145,16 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
               key: item.id || String(i),
               data: item,
               style: {
-                offsetAngle: this.totalAnagle() * (clockwiseAnimate ? -1 : 1)
+                offsetAngle: this.totalAnagle() * (clockwiseAnimate ? -1 : 1),
+                opacity: 0
               }
             }))}
             styles={items.map((item, i) => ({
               key: item.id || String(i),
               data: item,
               style: {
-                offsetAngle: spring(0, motionConfig)
+                offsetAngle: spring(0, motionConfig),
+                opacity: spring(1)
               }
             }))}
           >
@@ -162,7 +167,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
                     return (
                       <g key={conf.key || i}>
                         <Tooth
-                          style={onClick && {cursor:'pointer'}}
+                          style={{ cursor: onClick ? 'pointer': 'inherit', opacity: conf.style.opacity }}
                           startAngle={start}
                           endAngle={end}
                           offsetAngle={+conf.style.offsetAngle}

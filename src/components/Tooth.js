@@ -45,10 +45,11 @@ export default class Tooth extends PureComponent<void, ToothProps, void> {
   }
 
   _renderRadialLabel() {
-    let { startAngle, innerRadius, label, cx, cy, offsetAngle, labelMargin } = this.props
+    let { startAngle, innerRadius, label, cx, cy, offsetAngle, labelMargin, style } = this.props
     let centerlineAngle = startAngle + offsetAngle + this.toothAngle() / 2
     let { x, y, textAnchor, rotate } = RadialText(innerRadius + labelMargin , centerlineAngle, cx, cy)
     return (<text
+      style={style}
       className="tooth-label"
       ref="label"
       pointerEvents="none"
