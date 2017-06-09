@@ -219,7 +219,7 @@ var GearListChart = function (_PureComponent) {
                   data: item,
                   style: {
                     offsetAngle: _this2.totalAnagle() * (clockwiseAnimate ? -1 : 1),
-                    opacity: 0
+                    opacity: 1
                   }
                 };
               }),
@@ -229,7 +229,7 @@ var GearListChart = function (_PureComponent) {
                   data: item,
                   style: {
                     offsetAngle: (0, _reactMotion.spring)(0, motionConfig),
-                    opacity: (0, _reactMotion.spring)(1)
+                    opacity: 1
                   }
                 };
               })
@@ -241,8 +241,9 @@ var GearListChart = function (_PureComponent) {
                 interpolated.map(function (conf, i) {
                   var item = conf.data;
                   // before item's leave it stays in interpolated array, "i % items.length" to get correct position
+                  i = i % items.length;
 
-                  var _GearListChart$getToo = GearListChart.getToothParam(i % items.length, _perItemAngle, margin, _startAngle, clockwise),
+                  var _GearListChart$getToo = GearListChart.getToothParam(i, _perItemAngle, margin, _startAngle, clockwise),
                       _GearListChart$getToo2 = (0, _slicedToArray3.default)(_GearListChart$getToo, 2),
                       start = _GearListChart$getToo2[0],
                       end = _GearListChart$getToo2[1];
