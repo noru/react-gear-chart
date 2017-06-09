@@ -28,7 +28,8 @@ type GearListProps = {
   clockwise: boolean, // items line-up direction
   clockwiseAnimate: boolean,
   motionConfig: object,
-  items: Array<ToothItem>
+  items: Array<ToothItem>,
+  extra: React$Element
 }
 
 const Styles = {
@@ -116,7 +117,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
 
   render() {
     let { id, innerRadius, outerRadius, items, margin, limit, startAngle, endAngle, 
-      clockwise, clockwiseAnimate, motionConfig, className, style,
+      clockwise, clockwiseAnimate, motionConfig, className, style, extra,
       onMouseMove, onMouseEnter, onMouseLeave, onMouseOver, onClick, ...restProps } = this.props
 
     if(!items || !items.length ) return null
@@ -175,6 +176,8 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
                           cy={0}
                           outerRadius={outerRadius}
                           innerRadius={innerRadius}
+                          index={i}
+                          data={item}
                           mode={item.mode}
                           label={item.label}
                           strips={item.strips}
@@ -183,6 +186,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
                           onMouseEnter={onMouseEnter && this.mouseEventProxy}
                           onMouseOver={onMouseOver && this.mouseEventProxy}
                           onClick={onClick && this.mouseEventProxy}
+                          extra={extra}
                         />
                       </g>
                     )

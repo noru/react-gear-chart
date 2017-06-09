@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { sumBy } from 'lodash-es'
+import { sumBy, clone } from 'lodash-es'
 import AnnulusSector from './AnnulusSector'
 import GLC from './GearListChart'
 import classnames from 'classnames'
@@ -172,7 +172,11 @@ export default class Tooth extends PureComponent<void, ToothProps, void> {
   }  
 
   render() {
-    let { label, mode } = this.props
+    let { label, mode, style, extra, offsetAngle, clockwiseAnimate } = this.props
+    let props = clone(this.props)
+    let factor = clockwiseAnimate ? -1 : 1
+    props.startAngle += offsetAngle * factor
+    props.endAngle += offsetAngle * factor
     let tooth
     switch (mode) {
       case 'layer':
@@ -185,9 +189,10 @@ export default class Tooth extends PureComponent<void, ToothProps, void> {
         tooth = this._renderSpokerib()
     }
     return (
-      <g className="tooth" ref="tooth">
+      <g className="tooth" ref="tooth" style={style}>
         { tooth }
         { label && this._renderLabel() }
+        { extra && extra(props) }
       </g>
     )
   }

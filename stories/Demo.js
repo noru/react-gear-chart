@@ -3,6 +3,17 @@ import React, { Component } from 'react'
 import DebounceInput from 'react-debounce-input'
 import GearListChart from '../src/components/GearListChart'
 import { GenerateTeethData } from '../src/utils/helpers.js'
+import { NormalizeAngleRange, Polar2Cartesian } from '../src/utils/math'
+
+
+const ExtraComponent = props => {
+  let { startAngle, endAngle, innerRadius } = props
+  let [ _startAngle, _endAngle ] = NormalizeAngleRange(startAngle, endAngle)
+  let [x, y] = Polar2Cartesian(innerRadius - 13, (_endAngle + _startAngle) / 2)
+
+  // y-axis has opposite direction in browser
+  return <text x={x} y={-y}>❤️</text>
+}
 
 export default class Demo extends Component {
 
@@ -15,6 +26,7 @@ export default class Demo extends Component {
     margin: 3,
     clockwise: false,
     clockwiseAnimate: false,
+    showExtra: true,
     items: null,
   }
 
@@ -34,7 +46,7 @@ export default class Demo extends Component {
   }
   render() {
     let { startAngle, endAngle, outerRadius, innerRadius, margin, amount, items, 
-      clockwise, clockwiseAnimate } = this.state
+      clockwise, clockwiseAnimate, showExtra } = this.state
     return (
       <div className="app">
         <label>Start Angle</label>
@@ -88,6 +100,12 @@ export default class Demo extends Component {
         </label>
         <br/>
 
+        <label htmlFor="extra-component">
+          <input name="extra-component" type="checkbox" onChange={() => this.setState({showExtra: !showExtra})} checked={showExtra}/>
+          Render extra component
+        </label>
+        <br/>
+
         <button onClick={this.changeMode}>Total Chaos!</button>
         <button onClick={this.changeMode}>Spokerib</button>
         <button onClick={this.changeMode}>Layer</button>
@@ -102,6 +120,7 @@ export default class Demo extends Component {
           clockwise={clockwise}
           clockwiseAnimate={clockwiseAnimate}
           items={items || GenerateTeethData(amount)}
+          extra={showExtra && ExtraComponent}
         />
       </div>
     )

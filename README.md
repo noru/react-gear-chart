@@ -42,6 +42,7 @@ clockwiseAnimate | `boolean` | true | Teeth In/out animation direction.
 motionConfig | `object` | {} | Config for react-motion. See [SpringHelperConfig](https://github.com/chenglou/react-motion#helpers)
 onClick | `function` | | `click` event handler. Strip data is passed with the event, access it by `evt.stripData` & `evt.strips`
 onMouseMove/Leave/Enter/Over | `function` | | Similar to prop `onClick`
+extra | `React$Element` | | `props` of a tooth is sent to this function and allow you to render whatever you want over the chart. 
 
 
 ### ToothOption
