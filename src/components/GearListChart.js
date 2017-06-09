@@ -147,7 +147,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
               data: item,
               style: {
                 offsetAngle: this.totalAnagle() * (clockwiseAnimate ? -1 : 1),
-                opacity: 0
+                opacity: 1
               }
             }))}
             styles={items.map((item, i) => ({
@@ -155,7 +155,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
               data: item,
               style: {
                 offsetAngle: spring(0, motionConfig),
-                opacity: spring(1)
+                opacity: 1
               }
             }))}
           >
@@ -164,7 +164,8 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
                   interpolated.map((conf, i) => {
                     let item = conf.data
                     // before item's leave it stays in interpolated array, "i % items.length" to get correct position
-                    let [ start, end ] = GearListChart.getToothParam(i % items.length, _perItemAngle , margin, _startAngle, clockwise)
+                    i = i % items.length
+                    let [ start, end ] = GearListChart.getToothParam(i, _perItemAngle , margin, _startAngle, clockwise)
                     return (
                       <g key={conf.key || i}>
                         <Tooth
