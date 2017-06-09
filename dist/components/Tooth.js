@@ -110,7 +110,8 @@ var Tooth = function (_PureComponent) {
           cx = _props.cx,
           cy = _props.cy,
           offsetAngle = _props.offsetAngle,
-          labelMargin = _props.labelMargin;
+          labelMargin = _props.labelMargin,
+          style = _props.style;
 
       var centerlineAngle = startAngle + offsetAngle + this.toothAngle() / 2;
 
@@ -123,6 +124,7 @@ var Tooth = function (_PureComponent) {
       return _react2.default.createElement(
         'text',
         {
+          style: style,
           className: 'tooth-label',
           ref: 'label',
           pointerEvents: 'none',
@@ -268,8 +270,16 @@ var Tooth = function (_PureComponent) {
     value: function render() {
       var _props6 = this.props,
           label = _props6.label,
-          mode = _props6.mode;
+          mode = _props6.mode,
+          style = _props6.style,
+          extra = _props6.extra,
+          offsetAngle = _props6.offsetAngle,
+          clockwiseAnimate = _props6.clockwiseAnimate;
 
+      var props = (0, _lodashEs.clone)(this.props);
+      var factor = clockwiseAnimate ? -1 : 1;
+      props.startAngle += offsetAngle * factor;
+      props.endAngle += offsetAngle * factor;
       var tooth = void 0;
       switch (mode) {
         case 'layer':
@@ -284,9 +294,10 @@ var Tooth = function (_PureComponent) {
       }
       return _react2.default.createElement(
         'g',
-        { className: 'tooth', ref: 'tooth' },
+        { className: 'tooth', ref: 'tooth', style: style },
         tooth,
-        label && this._renderLabel()
+        label && this._renderLabel(),
+        extra && extra(props)
       );
     }
   }]);

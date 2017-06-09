@@ -106,21 +106,25 @@ var GearListChart = function (_PureComponent) {
         });
       }
     }, _this.motionWillEnter = function () {
-      if (_this.props.clockwiseAnimate) {
-        return { offsetAngle: -_this.totalAnagle() };
-      } else {
-        return { offsetAngle: _this.totalAnagle() };
-      }
+      var clockwiseAnimate = _this.props.clockwiseAnimate;
+
+      var totalAnagle = _this.totalAnagle();
+      var style = {
+        offsetAngle: clockwiseAnimate ? -totalAnagle : totalAnagle,
+        opacity: 0
+      };
+      return style;
     }, _this.motionWillLeave = function () {
       var _this$props = _this.props,
           clockwiseAnimate = _this$props.clockwiseAnimate,
           motionConfig = _this$props.motionConfig;
 
-      if (clockwiseAnimate) {
-        return { offsetAngle: (0, _reactMotion.spring)(_this.totalAnagle(), motionConfig) };
-      } else {
-        return { offsetAngle: (0, _reactMotion.spring)(-_this.totalAnagle(), motionConfig) };
-      }
+      var totalAnagle = _this.totalAnagle();
+      var style = {
+        offsetAngle: (0, _reactMotion.spring)(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig),
+        opacity: (0, _reactMotion.spring)(0, { stiffness: 80 })
+      };
+      return style;
     }, _this.clearFocus = function () {
       var focused = _this.refs.chart.querySelector('.tooth.focused');
       focused && focused.classList.remove('focused');
@@ -163,12 +167,13 @@ var GearListChart = function (_PureComponent) {
           motionConfig = _props2.motionConfig,
           className = _props2.className,
           style = _props2.style,
+          extra = _props2.extra,
           onMouseMove = _props2.onMouseMove,
           onMouseEnter = _props2.onMouseEnter,
           onMouseLeave = _props2.onMouseLeave,
           onMouseOver = _props2.onMouseOver,
           onClick = _props2.onClick,
-          restProps = (0, _objectWithoutProperties3.default)(_props2, ['id', 'innerRadius', 'outerRadius', 'items', 'margin', 'limit', 'startAngle', 'endAngle', 'clockwise', 'clockwiseAnimate', 'motionConfig', 'className', 'style', 'onMouseMove', 'onMouseEnter', 'onMouseLeave', 'onMouseOver', 'onClick']);
+          restProps = (0, _objectWithoutProperties3.default)(_props2, ['id', 'innerRadius', 'outerRadius', 'items', 'margin', 'limit', 'startAngle', 'endAngle', 'clockwise', 'clockwiseAnimate', 'motionConfig', 'className', 'style', 'extra', 'onMouseMove', 'onMouseEnter', 'onMouseLeave', 'onMouseOver', 'onClick']);
 
 
       if (!items || !items.length) return null;
@@ -213,7 +218,8 @@ var GearListChart = function (_PureComponent) {
                   key: item.id || String(i),
                   data: item,
                   style: {
-                    offsetAngle: _this2.totalAnagle() * (clockwiseAnimate ? -1 : 1)
+                    offsetAngle: _this2.totalAnagle() * (clockwiseAnimate ? -1 : 1),
+                    opacity: 0
                   }
                 };
               }),
@@ -222,7 +228,8 @@ var GearListChart = function (_PureComponent) {
                   key: item.id || String(i),
                   data: item,
                   style: {
-                    offsetAngle: (0, _reactMotion.spring)(0, motionConfig)
+                    offsetAngle: (0, _reactMotion.spring)(0, motionConfig),
+                    opacity: (0, _reactMotion.spring)(1)
                   }
                 };
               })
@@ -244,7 +251,7 @@ var GearListChart = function (_PureComponent) {
                     'g',
                     { key: conf.key || i },
                     _react2.default.createElement(_Tooth2.default, {
-                      style: onClick && { cursor: 'pointer' },
+                      style: { cursor: onClick ? 'pointer' : 'inherit', opacity: conf.style.opacity },
                       startAngle: start,
                       endAngle: end,
                       offsetAngle: +conf.style.offsetAngle,
@@ -252,6 +259,8 @@ var GearListChart = function (_PureComponent) {
                       cy: 0,
                       outerRadius: outerRadius,
                       innerRadius: innerRadius,
+                      index: i,
+                      data: item,
                       mode: item.mode,
                       label: item.label,
                       strips: item.strips,
@@ -259,7 +268,8 @@ var GearListChart = function (_PureComponent) {
                       onMouseLeave: onMouseLeave && _this2.mouseEventProxy,
                       onMouseEnter: onMouseEnter && _this2.mouseEventProxy,
                       onMouseOver: onMouseOver && _this2.mouseEventProxy,
-                      onClick: onClick && _this2.mouseEventProxy
+                      onClick: onClick && _this2.mouseEventProxy,
+                      extra: extra
                     })
                   );
                 })
