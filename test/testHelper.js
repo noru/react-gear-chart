@@ -1,14 +1,8 @@
 import jq from 'jquery'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import ReactTestUtils from 'react-dom/test-utils'
 import jsdom from 'jsdom'
 import chai, { expect } from 'chai'
 import chaiJquery from 'chai-jquery'
-import createHistory from 'history/createBrowserHistory'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 require('console.table')
 require("babel-core/register")({
     // Ignore everything in node_modules except node_modules/rcomponents.
@@ -30,11 +24,6 @@ chaiJquery(chai, chai.util, $)
 chai.use(require('chai-stats'))
 chai.use(require('chai-string'))
 
-function mockHistory(component) {
-  component.childContextTypes = { history: PropTypes.object }
-  component.prototype.getChildContext = () => ({ history: createHistory() })
-}
-
 // Helper for simulating events
 $.fn.simulate = function(eventName, value) {
   if (value) {
@@ -43,4 +32,4 @@ $.fn.simulate = function(eventName, value) {
   ReactTestUtils.Simulate[eventName](this[0])
 }
 
-export { mockHistory, expect }
+export { expect }
