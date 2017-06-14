@@ -163,8 +163,11 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
                 (<g transform={`translate(${cx}, ${cy})`}>{
                   interpolated.map((conf, i) => {
                     let item = conf.data
-                    // before item's leave it stays in interpolated array, "i % items.length" to get correct position
-                    i = i % items.length
+                    // before item's leave it stays in interpolated array, have to get correct position
+                    let leaveItemsCount = interpolated.length - items.length
+                    if (i >= leaveItemsCount) {
+                      i -= leaveItemsCount
+                    }
                     let [ start, end ] = GearListChart.getToothParam(i, _perItemAngle , margin, _startAngle, clockwise)
                     return (
                       <g key={conf.key || i}>

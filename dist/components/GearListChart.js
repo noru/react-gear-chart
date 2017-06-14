@@ -240,8 +240,11 @@ var GearListChart = function (_PureComponent) {
                 { transform: 'translate(' + cx + ', ' + cy + ')' },
                 interpolated.map(function (conf, i) {
                   var item = conf.data;
-                  // before item's leave it stays in interpolated array, "i % items.length" to get correct position
-                  i = i % items.length;
+                  // before item's leave it stays in interpolated array, have to get correct position
+                  var leaveItemsCount = interpolated.length - items.length;
+                  if (i >= leaveItemsCount) {
+                    i -= leaveItemsCount;
+                  }
 
                   var _GearListChart$getToo = GearListChart.getToothParam(i, _perItemAngle, margin, _startAngle, clockwise),
                       _GearListChart$getToo2 = (0, _slicedToArray3.default)(_GearListChart$getToo, 2),
