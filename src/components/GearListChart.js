@@ -95,7 +95,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     let totalAnagle = this.totalAnagle()
     let style = {
       offsetAngle: spring(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig), 
-      opacity: spring(0, { stiffness: 80 })
+      opacity: spring(0, motionConfig)
     }
     return style
   }

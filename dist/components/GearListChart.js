@@ -122,7 +122,7 @@ var GearListChart = function (_PureComponent) {
       var totalAnagle = _this.totalAnagle();
       var style = {
         offsetAngle: (0, _reactMotion.spring)(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig),
-        opacity: (0, _reactMotion.spring)(0, { stiffness: 80 })
+        opacity: (0, _reactMotion.spring)(0, motionConfig)
       };
       return style;
     }, _this.clearFocus = function () {
