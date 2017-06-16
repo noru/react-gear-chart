@@ -90,7 +90,8 @@
     "classnames": "^2.2.5",
     "lodash-es": "^4.17.4",
     "react-motion": "^0.5.0",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "should-update": "^2.0.0"
   },
   "peerDependencies": {
     "prop-types": ">=15",

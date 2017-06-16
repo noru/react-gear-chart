@@ -5,6 +5,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import classnames from 'classnames'
 import Tooth from './Tooth'
 import { AnnulusViewport, NormalizeAngleRange } from '../utils/math'
+import { shouldUpdate } from 'should-update'
 
 type Strip = {
   color: string,
@@ -31,6 +32,9 @@ type GearListProps = {
   items: Array<ToothItem>,
   extra: React$Element
 }
+
+const shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius', 
+  'margin', 'limit', 'clockwise', 'items', 'extra']
 
 const Styles = {
   container: {
@@ -115,6 +119,10 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     return _endAngle - _startAngle
   }
 
+  shouldComponentUpdate(nextProps) {
+    return shouldUpdate(shouldUpdateProps, this.props, nextProps)
+  }
+  
   render() {
     let { id, innerRadius, outerRadius, items, margin, limit, startAngle, endAngle, 
       clockwise, clockwiseAnimate, motionConfig, className, style, extra,

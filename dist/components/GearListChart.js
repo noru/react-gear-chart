@@ -57,7 +57,12 @@ var _Tooth2 = _interopRequireDefault(_Tooth);
 
 var _math = require('../utils/math');
 
+var _shouldUpdate = require('should-update');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius', 'margin', 'limit', 'clockwise', 'items', 'extra'];
+
 
 var Styles = {
   container: {
@@ -147,6 +152,11 @@ var GearListChart = function (_PureComponent) {
           _endAngle = _NormalizeAngleRange2[1];
 
       return _endAngle - _startAngle;
+    }
+  }, {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(nextProps) {
+      return (0, _shouldUpdate.shouldUpdate)(shouldUpdateProps, this.props, nextProps);
     }
   }, {
     key: 'render',

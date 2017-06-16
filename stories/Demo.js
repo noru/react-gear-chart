@@ -27,7 +27,7 @@ export default class Demo extends Component {
     clockwise: false,
     clockwiseAnimate: false,
     showExtra: true,
-    items: null,
+    items: GenerateTeethData(8),
   }
 
   changeMode = evt => {
@@ -39,7 +39,7 @@ export default class Demo extends Component {
     let prop = evt.target.getAttribute('data-prop')
     let value = +evt.target.value
     if (prop === 'amount') {
-      this.setState({ items: GenerateTeethData(value)})
+      this.setState({ items: GenerateTeethData(value), amount: value })
     } else {
       this.setState({ [prop]: value })
     }
@@ -119,7 +119,7 @@ export default class Demo extends Component {
           margin={margin}
           clockwise={clockwise}
           clockwiseAnimate={clockwiseAnimate}
-          items={items || GenerateTeethData(amount)}
+          items={items}
           extra={showExtra && ExtraComponent}
         />
       </div>
