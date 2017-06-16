@@ -27,6 +27,7 @@ type GearListProps = {
   margin: number,
   limit: number,
   clockwise: boolean, // items line-up direction
+  animate: boolean,
   clockwiseAnimate: boolean,
   motionConfig: object,
   items: Array<ToothItem>,
@@ -125,7 +126,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
   
   render() {
     let { id, innerRadius, outerRadius, items, margin, limit, startAngle, endAngle, 
-      clockwise, clockwiseAnimate, motionConfig, className, style, extra,
+      clockwise, animate, clockwiseAnimate, motionConfig, className, style, extra,
       onMouseMove, onMouseEnter, onMouseLeave, onMouseOver, onClick, ...restProps } = this.props
 
     if(!items || !items.length ) return null
@@ -149,7 +150,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
         <svg width={width} height={height}>
           <TransitionMotion
             willEnter={this.motionWillEnter}
-            willLeave={this.motionWillLeave}
+            willLeave={animate ? this.motionWillLeave : undefined}
             defaultStyles={items.map((item, i) => ({
               key: item.id || String(i),
               data: item,
@@ -162,7 +163,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
               key: item.id || String(i),
               data: item,
               style: {
-                offsetAngle: spring(0, motionConfig),
+                offsetAngle: animate ? spring(0, motionConfig) : 0,
                 opacity: 1
               }
             }))}
@@ -219,6 +220,7 @@ GearListChart.defaultProps = {
   margin: 0,
   clockwise: true,
   clockwiseAnimate: true,
+  animate: true,
   motionConfig: {},
 }
 

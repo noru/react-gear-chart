@@ -25,6 +25,7 @@ export default class Demo extends Component {
     amount: 8,
     margin: 3,
     clockwise: false,
+    animate: true,
     clockwiseAnimate: false,
     showExtra: true,
     items: GenerateTeethData(8),
@@ -46,7 +47,7 @@ export default class Demo extends Component {
   }
   render() {
     let { startAngle, endAngle, outerRadius, innerRadius, margin, amount, items, 
-      clockwise, clockwiseAnimate, showExtra } = this.state
+      animate, clockwise, clockwiseAnimate, showExtra } = this.state
     return (
       <div className="app">
         <label>Start Angle</label>
@@ -87,7 +88,14 @@ export default class Demo extends Component {
           value={amount} 
           debounceTimeout={800}
           onChange={this.changeValue} />
+        
         <br/>
+        <label htmlFor="animate-on-off">
+          <input name="animate-on-off" type="checkbox" onChange={() => this.setState({animate: !animate})} checked={animate}/>
+          Animate On
+        </label>
+        <br/>
+
         <label htmlFor="clockwise">
           <input name="clockwise" type="checkbox" onChange={() => this.setState({clockwise: !clockwise})} checked={clockwise}/>
           Clockwise
@@ -118,6 +126,7 @@ export default class Demo extends Component {
           outerRadius={outerRadius} innerRadius={innerRadius}
           margin={margin}
           clockwise={clockwise}
+          animate={animate}
           clockwiseAnimate={clockwiseAnimate}
           items={items}
           extra={showExtra && ExtraComponent}

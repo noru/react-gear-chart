@@ -2,9 +2,11 @@
 
 ![sample](./img/sample.png)
 
-[Demo](https://noru.github.io/react-gear-chart/storybook-static/index.html)
+Actively maintained. Welcome to PR/Issue.  🤡👉 [Demo](https://noru.github.io/react-gear-chart/storybook-static/index.html) 👈🤡
 
-## Install
+
+
+## Instal
 
 ```
 npm install react-gear-chart
@@ -34,10 +36,11 @@ startAngle | `number`| | **Required**. Start angle of your chart in degree with 
 endAngle | `number` | | **Required**. End angle of your chart.
 innerRadius | `number` | | **Required**. Inner radius of your chart in pixel.
 outerRadius | `number` | | **Required**. Outer radius of your chart in pixel.
-items | `Array<ToothOption>` | | **Required**. Chart data. See [Strip](#ToothOption)
+items | `Array<ToothOption>` | | **Required**. Chart data. See [ToothOption](#ToothOption)
 margin | `number` | 0 | Default angle between teeth.
 mode | `string` | 
 clockwise | `boolean` | true | The line-up direction of your items(teeth).
+animate | `boolean` | true | In-Out animation on/off. Turn off animation to gain performance.
 clockwiseAnimate | `boolean` | true | Teeth In/out animation direction. 
 motionConfig | `object` | {} | Config for react-motion. See [SpringHelperConfig](https://github.com/chenglou/react-motion#helpers)
 onClick | `function` | | `click` event handler. Strip data is passed with the event, access it by `evt.stripData` & `evt.strips`

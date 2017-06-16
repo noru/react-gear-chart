@@ -173,6 +173,7 @@ var GearListChart = function (_PureComponent) {
           startAngle = _props2.startAngle,
           endAngle = _props2.endAngle,
           clockwise = _props2.clockwise,
+          animate = _props2.animate,
           clockwiseAnimate = _props2.clockwiseAnimate,
           motionConfig = _props2.motionConfig,
           className = _props2.className,
@@ -183,7 +184,7 @@ var GearListChart = function (_PureComponent) {
           onMouseLeave = _props2.onMouseLeave,
           onMouseOver = _props2.onMouseOver,
           onClick = _props2.onClick,
-          restProps = (0, _objectWithoutProperties3.default)(_props2, ['id', 'innerRadius', 'outerRadius', 'items', 'margin', 'limit', 'startAngle', 'endAngle', 'clockwise', 'clockwiseAnimate', 'motionConfig', 'className', 'style', 'extra', 'onMouseMove', 'onMouseEnter', 'onMouseLeave', 'onMouseOver', 'onClick']);
+          restProps = (0, _objectWithoutProperties3.default)(_props2, ['id', 'innerRadius', 'outerRadius', 'items', 'margin', 'limit', 'startAngle', 'endAngle', 'clockwise', 'animate', 'clockwiseAnimate', 'motionConfig', 'className', 'style', 'extra', 'onMouseMove', 'onMouseEnter', 'onMouseLeave', 'onMouseOver', 'onClick']);
 
 
       if (!items || !items.length) return null;
@@ -222,7 +223,7 @@ var GearListChart = function (_PureComponent) {
             _reactMotion.TransitionMotion,
             {
               willEnter: this.motionWillEnter,
-              willLeave: this.motionWillLeave,
+              willLeave: animate ? this.motionWillLeave : undefined,
               defaultStyles: items.map(function (item, i) {
                 return {
                   key: item.id || String(i),
@@ -238,7 +239,7 @@ var GearListChart = function (_PureComponent) {
                   key: item.id || String(i),
                   data: item,
                   style: {
-                    offsetAngle: (0, _reactMotion.spring)(0, motionConfig),
+                    offsetAngle: animate ? (0, _reactMotion.spring)(0, motionConfig) : 0,
                     opacity: 1
                   }
                 };
@@ -332,6 +333,7 @@ GearListChart.defaultProps = {
   margin: 0,
   clockwise: true,
   clockwiseAnimate: true,
+  animate: true,
   motionConfig: {}
 };
 
