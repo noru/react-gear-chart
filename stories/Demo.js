@@ -5,7 +5,6 @@ import GearListChart from '../src/components/GearListChart'
 import { GenerateTeethData } from '../src/utils/helpers.js'
 import { NormalizeAngleRange, Polar2Cartesian } from '../src/utils/math'
 
-
 const ExtraComponent = props => {
   let { startAngle, endAngle, innerRadius } = props
   let [ _startAngle, _endAngle ] = NormalizeAngleRange(startAngle, endAngle)
@@ -46,49 +45,49 @@ export default class Demo extends Component {
     }
   }
   render() {
-    let { startAngle, endAngle, outerRadius, innerRadius, margin, amount, items, 
+    let { startAngle, endAngle, outerRadius, innerRadius, margin, amount, items,
       animate, clockwise, clockwiseAnimate, showExtra } = this.state
     return (
       <div className="app">
         <label>Start Angle</label>
         <DebounceInput
           data-prop="startAngle"
-          value={startAngle} 
+          value={startAngle}
           debounceTimeout={800}
           onChange={this.changeValue} />
         <label>End Angle</label>
         <DebounceInput
           data-prop="endAngle"
-          value={endAngle} 
+          value={endAngle}
           debounceTimeout={800}
           onChange={this.changeValue} />
         <br/>
         <label>Outer Radius</label>
         <DebounceInput
           data-prop="outerRadius"
-          value={outerRadius} 
+          value={outerRadius}
           debounceTimeout={800}
           onChange={this.changeValue} />
         <label>Inner Radius</label>
         <DebounceInput
           data-prop="innerRadius"
-          value={innerRadius} 
+          value={innerRadius}
           debounceTimeout={800}
           onChange={this.changeValue} />
         <br/>
         <label>Margin</label>
         <DebounceInput
           data-prop="margin"
-          value={margin} 
+          value={margin}
           debounceTimeout={800}
           onChange={this.changeValue} />
         <label>Teeth amount</label>
         <DebounceInput
           data-prop="amount"
-          value={amount} 
+          value={amount}
           debounceTimeout={800}
           onChange={this.changeValue} />
-        
+
         <br/>
         <label htmlFor="animate-on-off">
           <input name="animate-on-off" type="checkbox" onChange={() => this.setState({animate: !animate})} checked={animate}/>
@@ -120,9 +119,9 @@ export default class Demo extends Component {
         <button onClick={this.changeMode}>Bar</button>
         <br/>
 
-        <GearListChart 
-          id="demo" 
-          startAngle={startAngle} endAngle={endAngle} 
+        <GearListChart
+          id="demo"
+          startAngle={startAngle} endAngle={endAngle}
           outerRadius={outerRadius} innerRadius={innerRadius}
           margin={margin}
           clockwise={clockwise}
@@ -130,6 +129,7 @@ export default class Demo extends Component {
           clockwiseAnimate={clockwiseAnimate}
           items={items}
           extra={showExtra && ExtraComponent}
+          onClick={ evt => console.log(evt) }
         />
       </div>
     )

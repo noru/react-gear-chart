@@ -34,7 +34,8 @@ type GearListProps = {
   extra: React$Element
 }
 
-const shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius', 
+const shoudlUpdateStates = ['childFocused']
+const shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius',
   'margin', 'limit', 'clockwise', 'items', 'extra']
 
 const Styles = {
@@ -60,7 +61,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
   }
 
   static getRegistrationName(evt) {
-    return evt.dispatchConfig.registrationName || 
+    return evt.dispatchConfig.registrationName ||
            evt.dispatchConfig.phasedRegistrationNames.bubbled
   }
 
@@ -72,7 +73,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     let name = GearListChart.getRegistrationName(evt)
     this.props[name](evt)
     if (name === 'onClick') {
-      let self = this.refs.chart
+      let self = this.chart
       let teeth = self.querySelectorAll('.tooth')
       let focusedTooth = self.querySelector('.tooth.focused')
       if (focusedTooth && focusedTooth.contains(evt.target) && this.state.childFocused) {
@@ -88,7 +89,7 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     let { clockwiseAnimate } = this.props
     let totalAnagle = this.totalAnagle()
     let style = {
-      offsetAngle: clockwiseAnimate ? -totalAnagle : totalAnagle, 
+      offsetAngle: clockwiseAnimate ? -totalAnagle : totalAnagle,
       opacity: 0
     }
     return style
@@ -99,14 +100,14 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     let { clockwiseAnimate, motionConfig } = this.props
     let totalAnagle = this.totalAnagle()
     let style = {
-      offsetAngle: spring(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig), 
+      offsetAngle: spring(clockwiseAnimate ? totalAnagle : -totalAnagle, motionConfig),
       opacity: spring(0, motionConfig)
     }
     return style
   }
 
   /** Clear focus status if need to */
-  clearFocus = () => { 
+  clearFocus = () => {
     let focused = this.refs.chart.querySelector('.tooth.focused')
     focused && focused.classList.remove('focused')
     this.setState({ childFocused: false })
@@ -120,12 +121,13 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
     return _endAngle - _startAngle
   }
 
-  shouldComponentUpdate(nextProps) {
-    return shouldUpdate(shouldUpdateProps, this.props, nextProps)
+  shouldComponentUpdate(nextProps, nextState) {
+    return shouldUpdate(shoudlUpdateStates, this.state, nextState) ||
+           shouldUpdate(shouldUpdateProps, this.props, nextProps)
   }
-  
+
   render() {
-    let { id, innerRadius, outerRadius, items, margin, limit, startAngle, endAngle, 
+    let { id, innerRadius, outerRadius, items, margin, limit, startAngle, endAngle,
       clockwise, animate, clockwiseAnimate, motionConfig, className, style, extra,
       onMouseMove, onMouseEnter, onMouseLeave, onMouseOver, onClick, ...restProps } = this.props
 
@@ -140,11 +142,11 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
       /* shift half of the margin to centerize teeth */
       _startAngle = _endAngle - margin / 2
     } else {
-      _startAngle = _startAngle + margin / 2 
+      _startAngle = _startAngle + margin / 2
     }
 
     return (
-      <div id={id} ref="chart" className={classnames('gear-list-chart', className, childFocused ? 'child-focused' : '')} 
+      <div id={id} ref={r => this.chart = r} className={classnames('gear-list-chart', className, childFocused ? 'child-focused' : '')}
         style={[Styles.container, style]} {...restProps}>
 
         <svg width={width} height={height}>
