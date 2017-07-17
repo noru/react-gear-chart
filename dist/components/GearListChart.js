@@ -61,8 +61,9 @@ var _shouldUpdate = require('should-update');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius', 'margin', 'limit', 'clockwise', 'items', 'extra'];
+var shoudlUpdateStates = ['childFocused'];
 
+var shouldUpdateProps = ['id', 'startAngle', 'endAngle', 'innerRadius', 'outerRadius', 'margin', 'limit', 'clockwise', 'items', 'extra'];
 
 var Styles = {
   container: {
@@ -98,7 +99,7 @@ var GearListChart = function (_PureComponent) {
       var name = GearListChart.getRegistrationName(evt);
       _this.props[name](evt);
       if (name === 'onClick') {
-        var self = _this.refs.chart;
+        var self = _this.chart;
         var teeth = self.querySelectorAll('.tooth');
         var focusedTooth = self.querySelector('.tooth.focused');
         if (focusedTooth && focusedTooth.contains(evt.target) && _this.state.childFocused) {
@@ -155,8 +156,8 @@ var GearListChart = function (_PureComponent) {
     }
   }, {
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps) {
-      return (0, _shouldUpdate.shouldUpdate)(shouldUpdateProps, this.props, nextProps);
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return (0, _shouldUpdate.shouldUpdate)(shoudlUpdateStates, this.state, nextState) || (0, _shouldUpdate.shouldUpdate)(shouldUpdateProps, this.props, nextProps);
     }
   }, {
     key: 'render',
@@ -214,7 +215,9 @@ var GearListChart = function (_PureComponent) {
 
       return _react2.default.createElement(
         'div',
-        (0, _extends3.default)({ id: id, ref: 'chart', className: (0, _classnames2.default)('gear-list-chart', className, childFocused ? 'child-focused' : ''),
+        (0, _extends3.default)({ id: id, ref: function ref(r) {
+            return _this2.chart = r;
+          }, className: (0, _classnames2.default)('gear-list-chart', className, childFocused ? 'child-focused' : ''),
           style: [Styles.container, style] }, restProps),
         _react2.default.createElement(
           'svg',
