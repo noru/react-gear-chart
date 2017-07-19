@@ -1,0 +1,6 @@
+.gear-list-chart .tooth {
+  transition: opacity .3s ease-in-out;
+}
+.gear-list-chart.child-focused .tooth:not(.focused){
+  opacity: .5 !important;
+}

@@ -108,12 +108,12 @@ export default class GearListChart extends PureComponent<void, GearListProps, vo
 
   /** Clear focus status if need to */
   clearFocus = () => {
-    let focused = this.refs.chart.querySelector('.tooth.focused')
+    let focused = this.chart.querySelector('.tooth.focused')
     focused && focused.classList.remove('focused')
     this.setState({ childFocused: false })
   }
 
-  isFocused = () => this.refs.chart.classList.contains('child-focused')
+  isFocused = () => this.chart.classList.contains('child-focused')
 
   totalAnagle() {
     let { endAngle, startAngle } = this.props

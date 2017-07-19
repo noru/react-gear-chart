@@ -1,9 +1,9 @@
-/* @flow */
 import React, { Component } from 'react'
 import DebounceInput from 'react-debounce-input'
 import GearListChart from '../src/components/GearListChart'
 import { GenerateTeethData } from '../src/utils/helpers.js'
 import { NormalizeAngleRange, Polar2Cartesian } from '../src/utils/math'
+import './demo.css'
 
 const ExtraComponent = props => {
   let { startAngle, endAngle, innerRadius } = props

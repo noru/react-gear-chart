@@ -73,12 +73,11 @@ var Styles = {
   pointer: {
     cursor: 'pointer'
   }
+  /**
+   * Use Polar Coordinate System with convention:
+   * https://en.wikipedia.org/wiki/Polar_coordinate_system#/media/File:Polar_graph_paper.svg
+   */
 };
-/**
- * Use Polar Coordinate System with convention:
- * https://en.wikipedia.org/wiki/Polar_coordinate_system#/media/File:Polar_graph_paper.svg
- */
-
 var GearListChart = function (_PureComponent) {
   (0, _inherits3.default)(GearListChart, _PureComponent);
 
@@ -132,11 +131,11 @@ var GearListChart = function (_PureComponent) {
       };
       return style;
     }, _this.clearFocus = function () {
-      var focused = _this.refs.chart.querySelector('.tooth.focused');
+      var focused = _this.chart.querySelector('.tooth.focused');
       focused && focused.classList.remove('focused');
       _this.setState({ childFocused: false });
     }, _this.isFocused = function () {
-      return _this.refs.chart.classList.contains('child-focused');
+      return _this.chart.classList.contains('child-focused');
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
