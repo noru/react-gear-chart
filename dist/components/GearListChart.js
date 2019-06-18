@@ -214,10 +214,14 @@ var GearListChart = function (_PureComponent) {
 
       return _react2.default.createElement(
         'div',
-        (0, _extends3.default)({ id: id, ref: function ref(r) {
+        (0, _extends3.default)({
+          id: id,
+          ref: function ref(r) {
             return _this2.chart = r;
-          }, className: (0, _classnames2.default)('gear-list-chart', className, childFocused ? 'child-focused' : ''),
-          style: [Styles.container, style] }, restProps),
+          },
+          className: (0, _classnames2.default)('gear-list-chart', className, childFocused ? 'child-focused' : ''),
+          style: (0, _extends3.default)({}, Styles.container, style)
+        }, restProps),
         _react2.default.createElement(
           'svg',
           { width: width, height: height },
