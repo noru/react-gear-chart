@@ -80,7 +80,7 @@
     "sinon": "^2.1.0",
     "style-loader": "^0.18.2",
     "webpack": "^2.5.1",
-    "webpack-dashboard": "0.1.8",
+    "webpack-dashboard": "3.3.7",
     "webpack-dev-server": "^2.4.4",
     "webpack-hot-middleware": "2.12.2",
     "webpack-merge": "0.14.1"
